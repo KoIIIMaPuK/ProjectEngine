@@ -1,15 +1,13 @@
 import asyncio
 import aiohttp
-import sys
 from bs4 import BeautifulSoup as BS
-from datetime import datetime
 from fake_useragent import UserAgent
 
-BASE_URL = "https://ru.investing.com/equities"
-URL_SITE = "https://ru.investing.com"
-HEADERS = {"User-Agent": UserAgent().random}
 
-async def ALL():
+async def IndexMOEX():
+    BASE_URL = "https://ru.investing.com/equities"
+    URL_SITE = "https://ru.investing.com"
+    HEADERS = {"User-Agent": UserAgent().random}
     async with aiohttp.ClientSession() as session:
         async with session.get(BASE_URL, headers=HEADERS) as response:
             variableRead = await aiohttp.StreamReader.read(response.content)
@@ -24,13 +22,12 @@ async def ALL():
                     variableSITE = BS(variableRead, 'html.parser')
 
                     price = variableSITE.find("div", {"class": "text-5xl/9 font-bold text-[#232526] md:text-[42px] md:leading-[60px]"})
-
-                    if price is not None:
-                        print(f'equities: UNDEFINED\t| price: {price.text} ₽\t| links: {URL_EQUITIES}')
-                    else:
-                        print(f'Error: Price not found for {URL_EQUITIES}')
+                    title = variableSITE.find("h1", {"class": "mb-2.5 text-left text-xl font-bold leading-7 text-[#232526] md:mb-2 md:text-3xl md:leading-8 rtl:soft-ltr"})
+                    time = variableSITE.find("div", {"class": "flex items-center gap-1 text-xs/4 text-[#5B616E]"})
+                    
+                    print(f'price: {price.text} ₽ \t | equities: {title.text} \t | time: {time.text}')
 
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(ALL())
+    loop.run_until_complete(IndexMOEX())
