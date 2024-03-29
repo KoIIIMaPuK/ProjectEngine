@@ -12,18 +12,18 @@ HEADERS = {"User-Agent": UserAgent().random}
 async def ALL():
     async with aiohttp.ClientSession() as session:
         async with session.get(BASE_URL, headers=HEADERS) as response:
-            r = await aiohttp.StreamReader.read(response.content)
-            soup = BS(r, 'html.parser')
-            links = soup.find_all("a", {"class": "overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-[#181C21] hover:text-[#1256A0]"})
+            variableRead = await aiohttp.StreamReader.read(response.content)
+            variableSITE = BS(variableRead, 'html.parser')
+            links = variableSITE.find_all("a", {"class": "overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-[#181C21] hover:text-[#1256A0]"})
 
             for link in links:
                 URL_EQUITIES = f"{URL_SITE}/{link.get('href')}"
 
                 async with session.get(URL_EQUITIES, headers=HEADERS) as response:
-                    r = await aiohttp.StreamReader.read(response.content)
-                    soup = BS(r, 'html.parser')
+                    variableRead = await aiohttp.StreamReader.read(response.content)
+                    variableSITE = BS(variableRead, 'html.parser')
 
-                    price = soup.find("div", {"class": "text-5xl/9 font-bold text-[#232526] md:text-[42px] md:leading-[60px]"})
+                    price = variableSITE.find("div", {"class": "text-5xl/9 font-bold text-[#232526] md:text-[42px] md:leading-[60px]"})
 
                     if price is not None:
                         print(f'equities: UNDEFINED\t| price: {price.text} ₽\t| links: {URL_EQUITIES}')
