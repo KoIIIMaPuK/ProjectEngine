@@ -31,3 +31,5 @@ async def IndexMOEX():
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     loop.run_until_complete(IndexMOEX())
+    
+# Добавить гены для нейронки. Сделать их как подключаемыми файлами
