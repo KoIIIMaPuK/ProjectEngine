@@ -1,5 +1,6 @@
 import asyncio
 import aiohttp
+import json
 from bs4 import BeautifulSoup as BS
 from fake_useragent import UserAgent
 
@@ -8,7 +9,14 @@ HEADERS = {"User-Agent": UserAgent().random}
 BASE_URL = "https://ru.investing.com/equities"
 URL_SITE = "https://ru.investing.com"
 
-            
+URL_SBER = "https://www.tinkoff.ru/invest/stocks/SBER/"
+URL_TCSG = "https://www.tinkoff.ru/invest/stocks/TCSG/"
+URL_YNDX = "https://www.tinkoff.ru/invest/stocks/YNDX/"
+URL_LKOH = "https://www.tinkoff.ru/invest/stocks/LKOH/"
+URL_VTBR = "https://www.tinkoff.ru/invest/stocks/VTBR/"
+URL_GAZP = "https://www.tinkoff.ru/invest/stocks/GAZP/"
+URL_MGNT = "https://www.tinkoff.ru/invest/stocks/MGNT/"
+
 async def IndexMOEX():
     async with aiohttp.ClientSession() as session:
         async with session.get(BASE_URL, headers=HEADERS) as response:
@@ -29,10 +37,216 @@ async def IndexMOEX():
                     print(f'price: {price} ₽ \t | equities: {title}')
 
 
+async def TCSG():
+    async with aiohttp.ClientSession() as session:
+        async with session.get(URL_TCSG, headers=HEADERS) as response:
+            r = await aiohttp.StreamReader.read(response.content)
+            soup = BS(r, 'html.parser')
+
+            indicators = soup.find_all("div", {"class": "SecuritySummary__value_yAWfT"})
+            
+            if indicators:
+                priceOpen = indicators[0]
+                priceClose = indicators[1]
+                name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"})
+                title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"})
+                
+                if priceOpen and priceClose and name and title:
+                    priceOpen = indicators[0].text
+                    priceClose = indicators[1].text
+                    name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"}).text
+                    title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"}).text
+                    
+                    DATA_TCGS = {
+                        "name": name,
+                        "title": title,
+                        "price_openning": priceOpen,
+                        "price_closed": priceClose
+                    }
+                            
+
+async def SBER():
+    async with aiohttp.ClientSession() as session:
+        async with session.get(URL_SBER, headers=HEADERS) as response:
+            r = await aiohttp.StreamReader.read(response.content)
+            soup = BS(r, 'html.parser')
+
+            indicators = soup.find_all("div", {"class": "SecuritySummary__value_yAWfT"})
+            
+            if indicators:
+                priceOpen = indicators[0]
+                priceClose = indicators[1]
+                name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"})
+                title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"})
+                
+                if priceOpen and priceClose and name and title:
+                    priceOpen = indicators[0].text
+                    priceClose = indicators[1].text
+                    name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"}).text
+                    title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"}).text
+                    
+                    DATA_SBER = {
+                        "name": name,
+                        "title": title,
+                        "price_openning": priceOpen,
+                        "price_closed": priceClose
+                    }
+                        
+
+
+async def YNDX():
+    async with aiohttp.ClientSession() as session:
+        async with session.get(URL_YNDX, headers=HEADERS) as response:
+            r = await aiohttp.StreamReader.read(response.content)
+            soup = BS(r, 'html.parser')
+
+            indicators = soup.find_all("div", {"class": "SecuritySummary__value_yAWfT"})
+            
+            if indicators:
+                priceOpen = indicators[0]
+                priceClose = indicators[1]
+                name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"})
+                title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"})
+                
+                if priceOpen and priceClose and name and title:
+                    priceOpen = indicators[0].text
+                    priceClose = indicators[1].text
+                    name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"}).text
+                    title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"}).text
+
+                    DATA_YNDX = {
+                        "name": name,
+                        "title": title,
+                        "price_openning": priceOpen,
+                        "price_closed": priceClose
+                    }
+
+
+async def LKOH():
+    async with aiohttp.ClientSession() as session:
+        async with session.get(URL_LKOH, headers=HEADERS) as response:
+            r = await aiohttp.StreamReader.read(response.content)
+            soup = BS(r, 'html.parser')
+
+            indicators = soup.find_all("div", {"class": "SecuritySummary__value_yAWfT"})
+            
+            if indicators:
+                priceOpen = indicators[0]
+                priceClose = indicators[1]
+                name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"})
+                title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"})
+                
+                if priceOpen and priceClose and name and title:
+                    priceOpen = indicators[0].text
+                    priceClose = indicators[1].text
+                    name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"}).text
+                    title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"}).text      
+                    
+                    DATA_LKOH = {
+                        "name": name,
+                        "title": title,
+                        "price_openning": priceOpen,
+                        "price_closed": priceClose
+                    }    
+              
+
+async def VTBR():
+    async with aiohttp.ClientSession() as session:
+        async with session.get(URL_VTBR, headers=HEADERS) as response:
+            r = await aiohttp.StreamReader.read(response.content)
+            soup = BS(r, 'html.parser')
+
+            indicators = soup.find_all("div", {"class": "SecuritySummary__value_yAWfT"})
+            
+            if indicators:
+                priceOpen = indicators[0]
+                priceClose = indicators[1]
+                name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"})
+                title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"})
+                
+                if priceOpen and priceClose and name and title:
+                    priceOpen = indicators[0].text
+                    priceClose = indicators[1].text
+                    name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"}).text
+                    title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"}).text
+                    
+                    DATA_VTBR = {
+                        "name": name,
+                        "title": title,
+                        "price_openning": priceOpen,
+                        "price_closed": priceClose
+                    }          
+
+
+async def GAZP():
+    async with aiohttp.ClientSession() as session:
+        async with session.get(URL_GAZP, headers=HEADERS) as response:
+            r = await aiohttp.StreamReader.read(response.content)
+            soup = BS(r, 'html.parser')
+
+            indicators = soup.find_all("div", {"class": "SecuritySummary__value_yAWfT"})
+            
+            if indicators:
+                priceOpen = indicators[0]
+                priceClose = indicators[1]
+                name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"})
+                title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"})
+                
+                if priceOpen and priceClose and name and title:
+                    priceOpen = indicators[0].text
+                    priceClose = indicators[1].text
+                    name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"}).text
+                    title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"}).text
+                    
+                    DATA_GAZP = {
+                        "name": name,
+                        "title": title,
+                        "price_openning": priceOpen,
+                        "price_closed": priceClose
+                    } 
+                    
+                    
+async def MGNT():
+    async with aiohttp.ClientSession() as session:
+        async with session.get(URL_MGNT, headers=HEADERS) as response:
+            r = await aiohttp.StreamReader.read(response.content)
+            soup = BS(r, 'html.parser')
+
+            indicators = soup.find_all("div", {"class": "SecuritySummary__value_yAWfT"})
+            
+            if indicators:
+                priceOpen = indicators[0]
+                priceClose = indicators[1]
+                name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"})
+                title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"})
+                
+                if priceOpen and priceClose and name and title:
+                    priceOpen = indicators[0].text
+                    priceClose = indicators[1].text
+                    name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"}).text
+                    title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"}).text
+                    
+                    DATA_MGNT = {
+                        "name": name,
+                        "title": title,
+                        "price_openning": priceOpen,
+                        "price_closed": priceClose
+                    }            
+
+                    
+
 def mainEquities():
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(IndexMOEX())
-
+    loop.run_until_complete(TCSG())
+    loop.run_until_complete(SBER())
+    loop.run_until_complete(YNDX())
+    loop.run_until_complete(LKOH())
+    loop.run_until_complete(VTBR())
+    loop.run_until_complete(GAZP())
+    loop.run_until_complete(MGNT())
+    
 if __name__ == '__main__':
     mainEquities()
-    
+
+
+# print(f'{priceClose}, {priceOpen}, {title}, {name}')
