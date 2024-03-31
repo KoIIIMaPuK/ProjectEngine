@@ -16,6 +16,7 @@ URL_LKOH = "https://www.tinkoff.ru/invest/stocks/LKOH/"
 URL_VTBR = "https://www.tinkoff.ru/invest/stocks/VTBR/"
 URL_GAZP = "https://www.tinkoff.ru/invest/stocks/GAZP/"
 URL_MGNT = "https://www.tinkoff.ru/invest/stocks/MGNT/"
+URL_SGZH = "https://www.tinkoff.ru/invest/stocks/SGZH/"
 
 DATA_EQUITIES = {
     "EQUILITES": []
@@ -290,7 +291,44 @@ async def MGNT():
                         with open(filename, 'w', encoding = 'utf-8') as file:
                             json.dump(data, file, indent=4)
                             
-                    write(DATA_EQUITIES, 'JSON_EQUITIES.json')             
+                    write(DATA_EQUITIES, 'JSON_EQUITIES.json')   
+
+
+async def SGZH():
+    async with aiohttp.ClientSession() as session:
+        async with session.get(URL_SGZH, headers=HEADERS) as response:
+            r = await aiohttp.StreamReader.read(response.content)
+            soup = BS(r, 'html.parser')
+
+            indicators = soup.find_all("div", {"class": "SecuritySummary__value_yAWfT"})
+            
+            if indicators:
+                priceOpen = indicators[0]
+                priceClose = indicators[1]
+                name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"})
+                title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"})
+                
+                if priceOpen and priceClose and name and title:
+                    priceOpen = indicators[0].text
+                    priceClose = indicators[1].text
+                    name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"}).text
+                    title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"}).text
+                    
+                    DATA_EQUITIES["EQUILITES"].append({
+                        "name": name,
+                        "title": title,
+                        "price_openning": priceOpen,
+                        "price_closed": priceClose
+                    })
+                    
+                    def write(data, filename):
+                        data = json.dumps(data)
+                        data = json.loads(str(data))
+                        with open(filename, 'w', encoding = 'utf-8') as file:
+                            json.dump(data, file, indent=4)
+                            
+                    write(DATA_EQUITIES, 'JSON_EQUITIES.json')   
+          
 
 def mainEquities():
     loop = asyncio.get_event_loop()
@@ -301,6 +339,7 @@ def mainEquities():
     loop.run_until_complete(VTBR())
     loop.run_until_complete(GAZP())
     loop.run_until_complete(MGNT())
+    loop.run_until_complete(SGZH())
     
 if __name__ == '__main__':
     mainEquities()
