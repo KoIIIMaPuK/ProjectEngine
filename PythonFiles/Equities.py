@@ -9,13 +9,17 @@ HEADERS = {"User-Agent": UserAgent().random}
 BASE_URL = "https://ru.investing.com/equities"
 URL_SITE = "https://ru.investing.com"
 
-URL_SBER = "https://www.tinkoff.ru/invest/stocks/SBER/"
 URL_TCSG = "https://www.tinkoff.ru/invest/stocks/TCSG/"
+URL_SBER = "https://www.tinkoff.ru/invest/stocks/SBER/"
 URL_YNDX = "https://www.tinkoff.ru/invest/stocks/YNDX/"
 URL_LKOH = "https://www.tinkoff.ru/invest/stocks/LKOH/"
 URL_VTBR = "https://www.tinkoff.ru/invest/stocks/VTBR/"
 URL_GAZP = "https://www.tinkoff.ru/invest/stocks/GAZP/"
 URL_MGNT = "https://www.tinkoff.ru/invest/stocks/MGNT/"
+
+DATA_EQUITIES = {
+    "EQUILITES": []
+}
 
 async def IndexMOEX():
     async with aiohttp.ClientSession() as session:
@@ -57,12 +61,20 @@ async def TCSG():
                     name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"}).text
                     title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"}).text
                     
-                    DATA_TCGS = {
+                    DATA_EQUITIES["EQUILITES"].append({
                         "name": name,
                         "title": title,
                         "price_openning": priceOpen,
                         "price_closed": priceClose
-                    }
+                    })
+                    
+                    def write(data, filename):
+                        data = json.dumps(data)
+                        data = json.loads(str(data))
+                        with open(filename, 'w', encoding = 'utf-8') as file:
+                            json.dump(data, file, indent=4)
+                            
+                    write(DATA_EQUITIES, 'JSON_EQUITIES.json')
                             
 
 async def SBER():
@@ -85,14 +97,21 @@ async def SBER():
                     name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"}).text
                     title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"}).text
                     
-                    DATA_SBER = {
+                    DATA_EQUITIES["EQUILITES"].append({
                         "name": name,
                         "title": title,
                         "price_openning": priceOpen,
                         "price_closed": priceClose
-                    }
+                    })
                         
-
+                    def write(data, filename):
+                        data = json.dumps(data)
+                        data = json.loads(str(data))
+                        with open(filename, 'w', encoding = 'utf-8') as file:
+                            json.dump(data, file, indent=4)
+                            
+                    write(DATA_EQUITIES, 'JSON_EQUITIES.json')
+                    
 
 async def YNDX():
     async with aiohttp.ClientSession() as session:
@@ -114,12 +133,20 @@ async def YNDX():
                     name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"}).text
                     title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"}).text
 
-                    DATA_YNDX = {
+                    DATA_EQUITIES["EQUILITES"].append({
                         "name": name,
                         "title": title,
                         "price_openning": priceOpen,
                         "price_closed": priceClose
-                    }
+                    })
+
+                    def write(data, filename):
+                        data = json.dumps(data)
+                        data = json.loads(str(data))
+                        with open(filename, 'w', encoding = 'utf-8') as file:
+                            json.dump(data, file, indent=4)
+                            
+                    write(DATA_EQUITIES, 'JSON_EQUITIES.json')
 
 
 async def LKOH():
@@ -142,13 +169,21 @@ async def LKOH():
                     name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"}).text
                     title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"}).text      
                     
-                    DATA_LKOH = {
+                    DATA_EQUITIES["EQUILITES"].append({
                         "name": name,
                         "title": title,
                         "price_openning": priceOpen,
                         "price_closed": priceClose
-                    }    
-              
+                    })  
+
+                    def write(data, filename):
+                        data = json.dumps(data)
+                        data = json.loads(str(data))
+                        with open(filename, 'w', encoding = 'utf-8') as file:
+                            json.dump(data, file, indent=4)
+                            
+                    write(DATA_EQUITIES, 'JSON_EQUITIES.json')
+
 
 async def VTBR():
     async with aiohttp.ClientSession() as session:
@@ -170,12 +205,20 @@ async def VTBR():
                     name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"}).text
                     title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"}).text
                     
-                    DATA_VTBR = {
+                    DATA_EQUITIES["EQUILITES"].append({
                         "name": name,
                         "title": title,
                         "price_openning": priceOpen,
                         "price_closed": priceClose
-                    }          
+                    })       
+
+                    def write(data, filename):
+                        data = json.dumps(data)
+                        data = json.loads(str(data))
+                        with open(filename, 'w', encoding = 'utf-8') as file:
+                            json.dump(data, file, indent=4)
+                            
+                    write(DATA_EQUITIES, 'JSON_EQUITIES.json')
 
 
 async def GAZP():
@@ -198,13 +241,21 @@ async def GAZP():
                     name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"}).text
                     title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"}).text
                     
-                    DATA_GAZP = {
+                    DATA_EQUITIES["EQUILITES"].append({
                         "name": name,
                         "title": title,
                         "price_openning": priceOpen,
                         "price_closed": priceClose
-                    } 
-                    
+                    })
+
+                    def write(data, filename):
+                        data = json.dumps(data)
+                        data = json.loads(str(data))
+                        with open(filename, 'w', encoding = 'utf-8') as file:
+                            json.dump(data, file, indent=4)
+                            
+                    write(DATA_EQUITIES, 'JSON_EQUITIES.json')
+
                     
 async def MGNT():
     async with aiohttp.ClientSession() as session:
@@ -226,14 +277,20 @@ async def MGNT():
                     name = soup.find("span", {"class", "SecurityHeader__showName_iw6qC"}).text
                     title = soup.find("span", {"class": "SecurityHeader__ticker_j7fZW"}).text
                     
-                    DATA_MGNT = {
+                    DATA_EQUITIES["EQUILITES"].append({
                         "name": name,
                         "title": title,
                         "price_openning": priceOpen,
                         "price_closed": priceClose
-                    }            
-
+                    })
                     
+                    def write(data, filename):
+                        data = json.dumps(data)
+                        data = json.loads(str(data))
+                        with open(filename, 'w', encoding = 'utf-8') as file:
+                            json.dump(data, file, indent=4)
+                            
+                    write(DATA_EQUITIES, 'JSON_EQUITIES.json')             
 
 def mainEquities():
     loop = asyncio.get_event_loop()
