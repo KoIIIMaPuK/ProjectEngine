@@ -321,6 +321,8 @@ async def SGZH():
                         "price_closed": priceClose
                     })
                     
+                    print("It's true")
+                    
                     def write(data, filename):
                         data = json.dumps(data)
                         data = json.loads(str(data))

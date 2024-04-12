@@ -3,50 +3,50 @@
         {
             "name": "\u0422\u041a\u0421 \u0425\u043e\u043b\u0434\u0438\u043d\u0433",
             "title": "TCSG",
-            "price_openning": "\u2013",
-            "price_closed": "3 161,5\u00a0\u20bd"
+            "price_openning": "3 140\u00a0\u20bd",
+            "price_closed": "3 140\u00a0\u20bd"
         },
         {
             "name": "\u0421\u0431\u0435\u0440 \u0411\u0430\u043d\u043a",
             "title": "SBER",
-            "price_openning": "\u2013",
-            "price_closed": "298,9\u00a0\u20bd"
+            "price_openning": "304,62\u00a0\u20bd",
+            "price_closed": "305,7\u00a0\u20bd"
         },
         {
             "name": "\u042f\u043d\u0434\u0435\u043a\u0441",
             "title": "YNDX",
-            "price_openning": "\u2013",
-            "price_closed": "4 000\u00a0\u20bd"
+            "price_openning": "3 963\u00a0\u20bd",
+            "price_closed": "3 980,2\u00a0\u20bd"
         },
         {
             "name": "\u041b\u0423\u041a\u041e\u0419\u041b",
             "title": "LKOH",
-            "price_openning": "\u2013",
-            "price_closed": "7 564\u00a0\u20bd"
+            "price_openning": "7 730,5\u00a0\u20bd",
+            "price_closed": "7 729\u00a0\u20bd"
         },
         {
             "name": "\u0411\u0430\u043d\u043a \u0412\u0422\u0411",
             "title": "VTBR",
-            "price_openning": "\u2013",
-            "price_closed": "0,0226\u00a0\u20bd"
+            "price_openning": "0,02397\u00a0\u20bd",
+            "price_closed": "0,023905\u00a0\u20bd"
         },
         {
             "name": "\u0413\u0430\u0437\u043f\u0440\u043e\u043c",
             "title": "GAZP",
-            "price_openning": "\u2013",
-            "price_closed": "157,74\u00a0\u20bd"
+            "price_openning": "162,75\u00a0\u20bd",
+            "price_closed": "163,57\u00a0\u20bd"
         },
         {
             "name": "\u041c\u0430\u0433\u043d\u0438\u0442",
             "title": "MGNT",
-            "price_openning": "\u2013",
-            "price_closed": "7 925\u00a0\u20bd"
+            "price_openning": "7 868,5\u00a0\u20bd",
+            "price_closed": "7 812,5\u00a0\u20bd"
         },
         {
             "name": "\u0421\u0435\u0433\u0435\u0436\u0430",
             "title": "SGZH",
-            "price_openning": "\u2013",
-            "price_closed": "3,744\u00a0\u20bd"
+            "price_openning": "3,801\u00a0\u20bd",
+            "price_closed": "3,766\u00a0\u20bd"
         }
     ]
 }
